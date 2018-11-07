@@ -25,6 +25,10 @@
         console.log(catchPhrase('Taq', 'Eat, sleep, code')); // 'Mo said, "Eat Sleep Code"'
 
 */
+const catchPhrase = (name, greet) => {
+        return `${name} said ${greet}`;
+}
+console.log(catchPhrase('jorge','lol'));
 
 /*  2
     @func isOdd
@@ -37,15 +41,41 @@
         isOdd(2); // false
 
 */
-
-
+const isOdd = (num) => {
+        if (num % 2 !== 0) {
+                return true;
+        }
+        return false;
+}
+        console.log(isOdd(5)); // true
+         console.log(isOdd(2)); // false
 /*  3 
     @func fizzBuzz
     @param end {number}
     @desc - Count from 1 to the end. Implement basic fizzBuzz
             Console.log each iteration. This function does not return anything
 */
+const fizzBuzz = (end) => {
+        for (let i = 1 ; i <= end ; i++) {
+                if (i % 5 === 0 && i %3 ===0) {
+                        console.log('fizzbuzz');
+                        continue;
+                }
+                else if (i % 3 === 0){
+                        console.log('fizz');
+                        continue;
+                }
+               else  if (i % 5 === 0) {
+                        console.log('buzz');
+                        continue;
+                }
+                console.log(i);
+                
+        }
+        
+}
 
+console.log(fizzBuzz(15));
 
 
 /*  4
@@ -61,6 +91,17 @@
             });
 */
 
+const myForEach = (arr, cb) => {
+        for (let i = 0; i < arr.length ; i++) {
+                cb(arr[i],i,arr);
+        }
+}
+
+
+myForEach([1,2,3], (element,i,arr) => {
+        console.log(element);
+});
+
 
 
 /*  5
@@ -75,7 +116,15 @@
               return e * 2;
             });
 */
-
+const myMap = (arr,cb) => { 
+        for (let i = 0; i < arr.length ; i++){
+                arr[i] = cb(arr[i],i,arr);
+        }
+        return arr;
+        }
+        console.log(myMap([1,2,3], (element) => {
+                return element ** 2;
+        }));
 
 /*  6
     @func createObject
@@ -90,6 +139,12 @@
             createObject('a', 'c'); // { a: 'c' }
 
 */
+const createObject = (keyName, keyValue) => {
+        let newObj = {};
+        newObj[keyName] = keyValue;
+        return newObj;
+}
+console.log(createObject('jorge',100));
 
 
 /*  7
@@ -98,7 +153,16 @@
     With @methods: 
         greets() // Returns the pet's special greet. Eg. "Rexy the dog said Woof!"
 */
-
+class Pet {
+        constructor(name,animal,greet) {
+        this.name = name;
+        this.animal = animal;
+        this.greet = greet;
+        }
+        greets(){
+                return `${this.name} the ${this.animal} said ${this.greet}`;
+        }
+}
 
 
 /*  8
@@ -119,4 +183,30 @@
 
         mo.petsOfKind('Cat'); // [ Pet {name: 'Tiger', animal: 'Cat', greet: 'Rawr'} ]
 */
-
+class Person {
+        constructor(name,age,pets = []) {
+                this.name = name;
+                this.age = age;
+                this.pets = pets;
+        }
+        profile(){
+                return `${this.name} is ${this.age}`;
+        }
+        addpet(animalName , animal, greet){
+                this.pets.push(new Pet(animalName,animal,greet));
+        }
+        petsofKind(animal) {
+                let newlist = []
+                for (let i = 0; i < this.pets.length ; i++){
+                        if (this.pets[i].animal === animal){
+                                newlist.push(this.pets[i]);
+                        }
+                }
+                return newlist;
+        }
+}
+const Jorge = new Person('jorge',22,[new Pet('spooky','dog','woof')]);
+console.log(Jorge);
+Jorge.addpet('lol','what kind of dog is this','lmao what are you doing');
+console.log('---------')
+console.log(Jorge.petsofKind('dog'));
